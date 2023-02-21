@@ -1,9 +1,8 @@
-import "./ItemListContainer.css"
 
-const ItemListContainer = ({name, isRed}) => {
+const ItemListContainer = ({greeting}) => {
   return (
     <div>
-        <h1 className={ isRed ? "red" : "blue" }> {name} </h1>
+        <h1> {greeting} </h1>
     </div>
   )
 }

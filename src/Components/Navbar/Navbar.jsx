@@ -17,9 +17,9 @@ const Navbar = () => {
                     <h1>Clinica Kaizen</h1>
                     <div class="navbar-nav" className="containerNavbarList">
                         <a class="nav-item nav-link" href="#">Nosotros</a>
+                        <a class="nav-item nav-link" href="#">Servicios</a>
                         <a class="nav-item nav-link" href="#">Contacto</a>
                         <a class="nav-item nav-link" href="#">Ubicacion</a>
-                        <a class="nav-item nav-link" href="#">Productos</a>
                     </div>
                 </div>
                 
