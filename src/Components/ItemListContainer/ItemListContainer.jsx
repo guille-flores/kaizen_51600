@@ -1,9 +1,11 @@
+import {Grid} from '@mui/material'
 
 const ItemListContainer = ({greeting}) => {
   return (
-    <div>
-        <h1> {greeting} </h1>
-    </div>
+    <Grid item>
+      <h1> {greeting} </h1>
+    </Grid>
+    
   )
 }
 

@@ -1,11 +1,13 @@
-import {FaShoppingCart} from "react-icons/fa"
-const CartWidget = () => {
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {Grid} from '@mui/material'
+
+const CartWidget = ({colnum=1}) => {
   return (
-    <div>
+    <Grid item xs={{colnum}} sx={{ display: { sm: 'block', xs: 'none' } }}>
       <a class="nav-item nav-link" href="#">
-        <FaShoppingCart size={50}/>
+        <ShoppingCartIcon sx={{ fontSize: 40 }}/>
       </a>
-    </div>
+    </Grid>
   )
 }
 
