@@ -15,6 +15,22 @@ function ConsumiendoApis() {
 
     console.log(posts)
 
+
+    useEffect(()=> {
+        const createPost = fetch("https://jsonplaceholder.typicode.com/posts", {
+            method: "POST",
+            headers:{
+                "Content-type": "aplication/json"
+            },
+            body: JSON.stringify({
+                userID: 12,
+                title: "Prueba GRF de post",
+                body: "probando probando desde React"
+            })
+        })
+        
+    }, [])
+
     return (
         <div>ConsumiendoApis</div>
     )
