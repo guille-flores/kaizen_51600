@@ -1,59 +1,66 @@
-import * as React from 'react';
+
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Equipo from '../Equipo/Equipo';
 import { Grid } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { equipo } from '../../equipoMock';
+import { servicios } from '../../serviciosMock';
+import { Fragment, useEffect, useState } from 'react';
 
 const Servicios = () => {
 
     const { category } = useParams()
 
-    const bull = (
-        <Box
-          component="span"
-          sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-        >
-          •
-        </Box>
-    );
-      
-    const card = (
-    <React.Fragment>
-        <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            Prisoanalisis
-        </Typography>
-        <Typography variant="h5" component="div">
-            be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            adjective
-        </Typography>
-        <Typography variant="body2">
-            well meaning and kindly.
-            <br />
-            {'"a benevolent smile"'}
-        </Typography>
-        </CardContent>
-        <CardActions>
-        <Button size="small">Learn More</Button>
-        </CardActions>
-    </React.Fragment>
-    );
+    const filtService = servicios.filter((x)=>x.category.toUpperCase() === String(category).toUpperCase())
+
+    const [service, setService] = useState([])
+    useEffect(()=>{
+        console.log(category, service)
+        const serviceList = new Promise((resolve, reject)=>{
+            resolve(category ? filtService : servicios)
+        })
+
+        serviceList
+            .then((res)=>{setService(res)})
+            .catch((e)=>console.log(e))
+    }, [category])
+
+    
+
 
 
     return (
         <Box sx={{ minWidth: 275 }}>
-            <Card variant="outlined">{card}</Card>
-            <Grid>
-                <Equipo category={category}/>
+            <Grid container spacing={2}>
+                {
+                    service.map((service)=>{
+                        return (
+                            <Grid item xs={12}>
+                                <Fragment>
+                                    <CardContent>
+                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                        {service.title}
+                                    </Typography>
+                                    <Typography variant="h5" component="div">
+                                        {service.fonetica}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        {service.description}
+                                    </Typography>
+                                    </CardContent>
+                                </Fragment>
+                            </Grid>
+                        )
+                    })
+                    
+                }
             </Grid>
+            <Box sx={{backgroundColor:'#FFFAF0', border: 1, padding: 4}}>
+                <h1>¡Conoce al equipo!</h1>
+                <h2>Ellos cuentan con experiencia en el servicio seleccionado:</h2>
+                <Equipo category={category}/>
+            </Box>
         </Box>
     )
 }
