@@ -1,15 +1,27 @@
-import ItemCount from "../ItemCount/ItemCount"
+import { Button } from "@mui/material"
+import { useContext } from "react"
+import { CartContext } from "../Context/CartContext"
 
-const Cart = () => {
-    const onAdd = (cantidad)=>{
-        console.log(`se agregó al carrito ${cantidad} elementos`)
-        console.log("se agregó al carrito "+ cantidad + " elementos")
-      }
-      let stock = 5
-      let initial = 1
-    
+const Cart = () => {    
+    const {cart, clearCart, totalPrice} = useContext(CartContext)
+    const total = totalPrice()
+   
+
     return (
-        <ItemCount stock={stock} initial={initial} onAdd={onAdd}/>
+        <div>
+            {
+                cart.map((elemento)=>{
+                    return(
+                        <div>
+                            <h2>{elemento.producto.title}</h2>
+                            <h2>{elemento.cantidad}</h2>
+                        </div>
+                    )
+                })
+            }
+            <h3>Total: {total}</h3>
+            <Button variant="contained" onClick={clearCart}>Vaciar Carrito</Button>
+        </div>
     )
 }
 
