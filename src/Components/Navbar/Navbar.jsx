@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 const Navbar = () => {
     const [age, setAge] = useState('');
+    const [categoria, setCategoria] = useState('');
 
     const handleChange = (event) => {
         setAge(event.target.value);
@@ -39,6 +40,33 @@ const Navbar = () => {
                         <Button md={3} variant="text" href="/equipo" fullWidth={true}>Nosotros</Button>
                         <FormControl  md={3} fullWidth>
                             <InputLabel id="demo-simple-select-label" size="small" >
+                                <Button md={3} variant="text" href="/" fullWidth={true}>PRODUCTOS</Button>
+                            </InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={categoria}
+                                label="PRODUCTOS"
+                            >
+                                <Link to="/">
+                                    <MenuItem>Todos</MenuItem>
+                                </Link>
+                                <Link to="/category/deportivas">
+                                    <MenuItem>Deportivas</MenuItem>
+                                </Link>
+                                <Link to="/category/urbanas">
+                                    <MenuItem>Urbanas</MenuItem>
+                                </Link>
+                                <Link to="/category/correr">
+                                    <MenuItem>Correr</MenuItem>
+                                </Link>
+                                <Link to="/category/sandalias">
+                                    <MenuItem>Sandalias</MenuItem>
+                                </Link>
+                            </Select>
+                        </FormControl>
+                        <FormControl  md={3} fullWidth>
+                            <InputLabel id="demo-simple-select-label" size="small" >
                                 <Button md={3} variant="text" href="/servicios" fullWidth={true}>SERVICIOS</Button>
                             </InputLabel>
                             <Select
@@ -63,7 +91,7 @@ const Navbar = () => {
                             </Select>
                         </FormControl>
                         <Button md={3} variant="text" href="#" fullWidth={true}>Ubicaciones</Button>
-                        <Button md={3} variant="text" href="#" fullWidth={true}>Nuestro Equipo</Button>
+                        <Button md={3} variant="text" href="/contacto" fullWidth={true}>contacto</Button>
                     </Stack>
                 </Grid>
     
@@ -74,6 +102,33 @@ const Navbar = () => {
                         </InputLabel>
                         <Select style={{minHeight: '20px', width:'80%'}}>
                             <Button variant="text" href="/equipo" fullWidth={true}>Nosotros</Button>
+                            <FormControl  md={3} fullWidth>
+                                <InputLabel id="demo-simple-select-label" size="small" >
+                                    <Button md={3} variant="text" href="/" fullWidth={true}>PRODUCTOS</Button>
+                                </InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={categoria}
+                                    label="PRODUCTOS"
+                                >
+                                    <Link to="/">
+                                        <MenuItem>Todos</MenuItem>
+                                    </Link>
+                                    <Link to="/category/deportivas">
+                                        <MenuItem>Deportivas</MenuItem>
+                                    </Link>
+                                    <Link to="/category/urbanas">
+                                        <MenuItem>Urbanas</MenuItem>
+                                    </Link>
+                                    <Link to="/category/correr">
+                                        <MenuItem>Correr</MenuItem>
+                                    </Link>
+                                    <Link to="/category/sandalias">
+                                        <MenuItem>Sandalias</MenuItem>
+                                    </Link>
+                                </Select>
+                            </FormControl>
                             <FormControl  md={3} fullWidth>
                                 <InputLabel id="demo-simple-select-label" size="small" >
                                     <Button md={3} variant="text" href="/servicios" fullWidth={true}>SERVICIOS</Button>
@@ -100,7 +155,7 @@ const Navbar = () => {
                                 </Select>
                             </FormControl>
                             <Button variant="text" href="#" fullWidth={true}>Ubicaciones</Button>
-                            <Button variant="text" href="#" fullWidth={true}>Nuestro Equipo</Button>
+                            <Button variant="text" href="/contacto" fullWidth={true}>contacto</Button>
                         </Select>
                     </FormControl>
                 </Grid>
