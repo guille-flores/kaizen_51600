@@ -23,7 +23,7 @@ const ItemDetailContainer = () => {
         let matchItem = cart.find( producto=> producto.producto.id === item.id)
         let itemQuantity = matchItem ? matchItem.cantidad : 0
         if(cantidad + itemQuantity < item.stock){
-        setCantidad(cantidad+1)
+            setCantidad(cantidad+1)
         }
     }
 
