@@ -1,5 +1,5 @@
 import { createContext, useState } from "react"
-
+import Swal from 'sweetalert2'
 
 export const CartContext = createContext()
 
@@ -30,7 +30,48 @@ const CartContextProvider = ({children}) => {
     }
     
     const clearCart = () => {
-        setCart([])
+        Swal.fire({
+            title: '¿Seguro que deseas eliminar todos los productos?',
+            text: "No podrás revertir este cambio.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, vaciar carrito!',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                setCart([])
+                Swal.fire(
+                    '¡Vaciado!',
+                    'Todos los productos se han eliminado y el carrito está vacío.',
+                    'success'
+                )
+            }
+          })
+    }
+
+    const deleteProduct = (producto) => {
+        Swal.fire({
+            title: '¿Seguro que deseas eliminar este producto del carrito?',
+            text: producto.producto.title,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, eliminar producto!',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                const newCart = cart.filter((element) => element.producto.id !== producto.producto.id)
+                setCart(newCart)
+                Swal.fire(
+                    '¡Producto eliminado!',
+                    'El producto '+ producto.producto.title +  ' ha sido eliminado del carrito.',
+                    'success'
+                )
+            }
+        })
     }
 
     const totalPrice = () => {
@@ -45,7 +86,8 @@ const CartContextProvider = ({children}) => {
         cart,
         agregarAlCarrito,
         clearCart,
-        totalPrice
+        totalPrice,
+        deleteProduct
     }
 
     return (

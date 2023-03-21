@@ -23,13 +23,20 @@ const ItemDetailContainer = () => {
         let matchItem = cart.find( producto=> producto.producto.id === item.id)
         let itemQuantity = matchItem ? matchItem.cantidad : 0
         if(cantidad + itemQuantity < item.stock){
-        setCantidad(cantidad+1)
+            setCantidad(cantidad+1)
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Lo sentimos, parece que no quedan más ' + item.title + ' disponibles.',
+                showConfirmButton: false,
+                timer: 4500
+              })
         }
     }
 
     const substractItem = () => {
         if(cantidad>0){
-        setCantidad(cantidad-1)
+            setCantidad(cantidad-1)
         }
     }
 
@@ -77,7 +84,7 @@ const ItemDetailContainer = () => {
                     <CardMedia
                         sx={{ height:"50vh"}}
                         image={productSelected.img}
-                        title="green iguana"
+                        title={productSelected.title}
                     />
                 </Card>
 

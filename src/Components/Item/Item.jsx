@@ -21,6 +21,13 @@ const Item = ({item}) => {
     let itemQuantity = matchItem ? matchItem.cantidad : 0
     if(cantidad + itemQuantity < item.stock){
       setCantidad(cantidad+1)
+    }else{
+      Swal.fire({
+          icon: 'error',
+          title: 'Lo sentimos, parece que no quedan más ' + item.title + ' disponibles.',
+          showConfirmButton: false,
+          timer: 4500
+        })
     }
   }
 
