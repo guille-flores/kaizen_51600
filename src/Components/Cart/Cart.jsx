@@ -30,7 +30,7 @@ const Cart = () => {
                                     <span>{elemento.producto.title}</span>
                                     <span>Precio Unitario: {elemento.producto.price.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })}</span>
                                     <p>Unidades: {elemento.cantidad}</p>
-                                    <Button color='secondary' variant="outlined" onClick={()=> deleteProduct(elemento)}>Eliminar</Button>
+                                    <Button color='secondary' variant="outlined" onClick={()=> deleteProduct(elemento)}>Eliminar Producto</Button>
                                 </Stack>
                             </Item>
                         )
