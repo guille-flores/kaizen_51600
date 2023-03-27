@@ -1,21 +1,33 @@
-import { Button, Grid, Stack } from "@mui/material"
 import { useParams } from "react-router-dom"
-import { products } from "../../productsMock"
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 
 import Swal from 'sweetalert2'
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../Context/CartContext';
+import ItemDetail from "../ItemDetail/ItemDetail";
+import { db } from "../../firebaseConfig";
+import { getDoc, doc } from "@firebase/firestore";
 
 
 
 
 const ItemDetailContainer = () => {
     const { id } = useParams()
-    const productSelected = products.find((n)=> String(n.id) === String(id)) 
+    const [ productSelected, setProductSelected ] = useState({})
+    
+    useEffect(()=>{
+        const dref = doc(db, "products", id) //reference to the specific document
+        getDoc(dref)
+            .then(res => {
+                setProductSelected({
+                    ...res.data(),
+                    id: res.id
+                })
+            })
+            .catch(e=> console.log(e))
+    }, [id])
 
-
+    //productSelected = products.find((n)=> String(n.id) === String(id)) 
+   
     const [cantidad, setCantidad] = useState(0)
     const { cart, agregarAlCarrito } = useContext(CartContext)
 
@@ -74,11 +86,7 @@ const ItemDetailContainer = () => {
     }
 
     return (
-        <Grid container>
-            <Grid item>
-                {productSelected.title}
-            </Grid>
-        </Grid>
+        <ItemDetail productSelected={productSelected} substractItem={substractItem} add2cart={add2cart} sumItem={sumItem} cantidad={cantidad}/>
     )
 }
 
