@@ -1,21 +1,33 @@
-import { Button, Grid, Stack } from "@mui/material"
 import { useParams } from "react-router-dom"
-import { products } from "../../productsMock"
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 
 import Swal from 'sweetalert2'
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../Context/CartContext';
+import ItemDetail from "../ItemDetail/ItemDetail";
+import { db } from "../../firebaseConfig";
+import { getDoc, doc } from "@firebase/firestore";
 
 
 
 
 const ItemDetailContainer = () => {
     const { id } = useParams()
-    const productSelected = products.find((n)=> String(n.id) === String(id)) 
+    const [ productSelected, setProductSelected ] = useState({})
+    
+    useEffect(()=>{
+        const dref = doc(db, "products", id) //reference to the specific document
+        getDoc(dref)
+            .then(res => {
+                setProductSelected({
+                    ...res.data(),
+                    id: res.id
+                })
+            })
+            .catch(e=> console.log(e))
+    }, [id])
 
-
+    //productSelected = products.find((n)=> String(n.id) === String(id)) 
+   
     const [cantidad, setCantidad] = useState(0)
     const { cart, agregarAlCarrito } = useContext(CartContext)
 
@@ -74,46 +86,7 @@ const ItemDetailContainer = () => {
     }
 
     return (
-        <Grid container spacing={3} p={3} alignItems="center" justifyContent="center">
-            <Grid item sm={6} xs={12}>
-                <h1>
-                    {productSelected.title}
-                </h1>
-
-                <Card p={5}>
-                    <CardMedia
-                        sx={{ height:"50vh"}}
-                        image={productSelected.img}
-                        title={productSelected.title}
-                    />
-                </Card>
-
-            </Grid>
-            <Grid item sm={6} xs={12}>
-                <p align="justify">
-                    {productSelected.description}
-                </p>
-                <h2 align="center">
-                    {productSelected.price.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })}
-                </h2>
-                <div align="center" sx={{margin:5}}>
-                    <Stack direction="row" alignItems="center" justifyContent="center">
-                        <Button size="small" color="primary" variant="outlined" onClick={() => sumItem(productSelected)}>
-                        +
-                        </Button>
-                        <p>
-                        {cantidad}
-                        </p>
-                        <Button size="small" color="primary" variant="outlined" onClick={substractItem}>
-                        -
-                        </Button>
-                    </Stack>
-                    <Button size="small" color="primary" variant="contained" sx={{left:4}} onClick={() => add2cart(productSelected, cantidad)}>
-                        Agregar al carrito
-                    </Button>
-                </div>
-            </Grid>
-        </Grid>
+        <ItemDetail productSelected={productSelected} substractItem={substractItem} add2cart={add2cart} sumItem={sumItem} cantidad={cantidad}/>
     )
 }
 
